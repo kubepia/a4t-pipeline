@@ -1,0 +1,46 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  annotations:
+    manifestival: new
+  creationTimestamp: "2020-04-01T13:41:47Z"
+  generation: 1
+  name: java-spring-boot2-deploy-task
+  namespace: kabanero
+  ownerReferences:
+  - apiVersion: kabanero.io/v1alpha2
+    controller: false
+    kind: Stack
+    name: java-spring-boot2
+    uid: 4ee1ace2-2196-4c47-8fe7-b004cbdd20d5
+  resourceVersion: "100143"
+  selfLink: /apis/tekton.dev/v1alpha1/namespaces/kabanero/tasks/java-spring-boot2-deploy-task
+  uid: 1ed38bee-ea40-4d50-a787-ee1b881b54ff
+spec:
+  inputs:
+    params:
+    - default: java-spring-boot2
+      name: repository-name
+      type: string
+    - default: app-deploy.yaml
+      name: app-deploy-file-name
+      type: string
+    resources:
+    - name: git-source
+      type: git
+    - name: docker-image
+      type: image
+  steps:
+  - args:
+    - -c
+    - find /workspace/$gitsource -name ${YAMLFILE} -type f|xargs kubectl apply -f
+    command:
+    - /bin/sh
+    env:
+    - name: gitsource
+      value: git-source
+    - name: YAMLFILE
+      value: $(inputs.params.app-deploy-file-name)
+    image: kabanero/kabanero-utils:0.3.0
+    name: deploy-image
+    resources: {}

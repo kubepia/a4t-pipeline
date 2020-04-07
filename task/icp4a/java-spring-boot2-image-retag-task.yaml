@@ -1,0 +1,80 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  annotations:
+    manifestival: new
+  creationTimestamp: "2020-04-01T13:41:47Z"
+  generation: 1
+  name: java-spring-boot2-image-retag-task
+  namespace: kabanero
+  ownerReferences:
+  - apiVersion: kabanero.io/v1alpha2
+    controller: false
+    kind: Stack
+    name: java-spring-boot2
+    uid: 4ee1ace2-2196-4c47-8fe7-b004cbdd20d5
+  resourceVersion: "100126"
+  selfLink: /apis/tekton.dev/v1alpha1/namespaces/kabanero/tasks/java-spring-boot2-image-retag-task
+  uid: 50b0c338-7714-434d-ae0a-2ecb78dde157
+spec:
+  inputs:
+    params:
+    - default: /workspace/extracted/Dockerfile
+      name: pathToDockerFile
+      type: string
+    - default: /workspace/extracted
+      name: pathToContext
+      type: string
+    resources:
+    - name: docker-src-image
+      type: image
+    - name: docker-dest-image
+      type: image
+  outputs:
+    resources:
+    - name: docker-dest-image
+      type: image
+  steps:
+  - command:
+    - buildah
+    - pull
+    - --tls-verify=false
+    - $(inputs.resources.docker-src-image.url)
+    image: appsody/appsody-buildah:0.5.8-buildah1.9.0
+    name: buildah-pull
+    resources: {}
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /var/lib/containers
+      name: varlibcontainers
+  - command:
+    - buildah
+    - tag
+    - $(inputs.resources.docker-src-image.url)
+    - $(inputs.resources.docker-dest-image.url)
+    image: appsody/appsody-buildah:0.5.8-buildah1.9.0
+    name: buildah-tag
+    resources: {}
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /var/lib/containers
+      name: varlibcontainers
+  - command:
+    - buildah
+    - push
+    - --tls-verify=false
+    - $(outputs.resources.docker-dest-image.url)
+    - docker://$(outputs.resources.docker-dest-image.url)
+    image: appsody/appsody-buildah:0.5.8-buildah1.9.0
+    name: buildah-push
+    resources: {}
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /var/lib/containers
+      name: varlibcontainers
+  volumes:
+  - emptyDir: {}
+    name: varlibcontainers
