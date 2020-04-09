@@ -1,0 +1,33 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  annotations:
+    manifestival: new
+  name: samtaskrun
+  namespace: kabanero
+spec:
+  taskref:
+    name: hcp-spring-boot2-build-push-task
+  serviceAccountName: kabanero-operator
+  inputs:
+    resources:
+      - name: git-source
+        resourceSpec:
+          type: git
+          params:
+            - name: url
+              value: http://bit.hcp.darumtech.net:7990/scm/kub/java-sody.git
+  outputs:
+    resources:
+      - name: docker-image
+        resourceSpec:
+          type: image
+          params:
+            - name: url
+              value: image-registry.openshift-image-registry.svc:5000/101/java-sody:latest
+      - name: git-source
+        resourceSpec:
+          type: git
+          params:
+            - name: url
+              value: http://bit.hcp.darumtech.net:7990/scm/kub/java-sody.git

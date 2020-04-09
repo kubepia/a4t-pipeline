@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  generateName: wext-java-sody-binding-
+  generation: 1
+  name: wext-java-sody-binding
+  namespace: tekton-pipelines
+spec:
+  params:
+    - name: webhooks-tekton-release-name
+      value: java-sody
+    - name: webhooks-tekton-target-namespace
+      value: kabanero
+    - name: webhooks-tekton-service-account
+      value: kabanero-operator
+    - name: webhooks-tekton-git-server
+      value: bit.hcp.darumtech.net
+    - name: webhooks-tekton-git-org
+      value: kubepia
+    - name: webhooks-tekton-git-repo
+      value: java-sody
+    - name: webhooks-tekton-pull-task
+      value: monitor-task
+    - name: webhooks-tekton-ssl-verify
+      value: "false"
+    - name: webhooks-tekton-insecure-skip-tls-verify
+      value: "true"
+    - name: webhooks-tekton-docker-registry
+      value: image-registry.openshift-image-registry.svc:5000/101

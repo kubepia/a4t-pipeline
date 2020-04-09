@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: kubepia-eventlistener
+  namespace: tekton-pipelines
+spec:
+  serviceAccountName: tekton-webhooks-extension-eventlistener
+  triggers:
+    # - bindings:
+    #     - apiversion: v1alpha1
+    #       name: bitbucket-binding
+    #     - apiversion: v1alpha1
+    #       name: wext-java-sody-binding
+    #   name: java-sody-kabanero-build-event
+    #   template:
+    #     apiversion: v1alpha1
+    #     name: java-spring-boot2-build-pl-template
+    - bindings:
+        - apiversion: v1alpha1
+          name: bitbucket-binding
+        - apiversion: v1alpha1
+          name: wext-java-sody-binding
+      name: java-sody-kabanero-build-deploy-event
+      template:
+        apiversion: v1alpha1
+        name: java-spring-boot2-build-deploy-pl-template

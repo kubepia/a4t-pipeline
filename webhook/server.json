@@ -1,0 +1,70 @@
+{
+	"eventKey": "repo:refs_changed",
+	"date": "2020-04-06T16:36:45+0000",
+	"actor": {
+		"name": "admin",
+		"emailAddress": "mskim@darumtech.co.kr",
+		"id": 1,
+		"displayName": "admin",
+		"active": true,
+		"slug": "admin",
+		"type": "NORMAL",
+		"links": {
+			"self": [
+				{ "href": "http://bit.hcp.darumtech.net:7990/users/admin" }
+			]
+		}
+	},
+	"repository": {
+		"slug": "java-sody",
+		"id": 2,
+		"name": "java-sody",
+		"scmId": "git",
+		"state": "AVAILABLE",
+		"statusMessage": "Available",
+		"forkable": true,
+		"project": {
+			"key": "KUB",
+			"id": 1,
+			"name": "kubepia",
+			"public": true,
+			"type": "NORMAL",
+			"links": {
+				"self": [
+					{ "href": "http://bit.hcp.darumtech.net:7990/projects/KUB" }
+				]
+			}
+		},
+		"public": false,
+		"links": {
+			"clone": [
+				{
+					"href": "http://bit.hcp.darumtech.net:7990/scm/kub/java-sody.git",
+					"name": "http"
+				},
+				{
+					"href": "ssh://git@bit.hcp.darumtech.net:7999/kub/java-sody.git",
+					"name": "ssh"
+				}
+			],
+			"self": [
+				{
+					"href": "http://bit.hcp.darumtech.net:7990/projects/KUB/repos/java-sody/browse"
+				}
+			]
+		}
+	},
+	"changes": [
+		{
+			"ref": {
+				"id": "refs/heads/master",
+				"displayId": "master",
+				"type": "BRANCH"
+			},
+			"refId": "refs/heads/master",
+			"fromHash": "165142d0a1704972b89db58399e1ec081a48aa34",
+			"toHash": "4b57ee2a00990e6e9af15c16853b639447e012a0",
+			"type": "UPDATE"
+		}
+	]
+}
