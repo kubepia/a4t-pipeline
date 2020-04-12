@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  name: sam-run
+spec:
+  serviceAccountName: kabanero-operator
+  pipelineRef:
+    name: hcp-appsody-build-deploy-pl
+  resources:
+    - name: git-source
+      resourceRef:
+        name: git-source-sam
+    - name: docker-image
+      resourceRef:
+        name: docker-image-sam
+  params:
+    - name: target-namespace
+      value: 11st
+    - name: event-type
+      value: push
+    - name: event-ref
+      value: refs/heads/master
+---
+

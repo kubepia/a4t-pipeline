@@ -16,7 +16,10 @@ spec:
           type: git
           params:
             - name: url
-              value: http://bit.hcp.darumtech.net:7990/scm/kub/java-sody.git
+              value: http://bit.hcp.darumtech.net:7990/scm/kub/icp4a-java-sody.git
+    params:
+      - name: target-namespace
+        value: "11st"
   outputs:
     resources:
       - name: docker-image
@@ -24,10 +27,10 @@ spec:
           type: image
           params:
             - name: url
-              value: image-registry.openshift-image-registry.svc:5000/101/java-sody:latest
+              value: image-registry.openshift-image-registry.svc:5000/11st/icp4a-java-sody:latest
       - name: git-source
         resourceSpec:
           type: git
           params:
             - name: url
-              value: http://bit.hcp.darumtech.net:7990/scm/kub/java-sody.git
+              value: http://bit.hcp.darumtech.net:7990/scm/kub/icp4a-java-sody.git

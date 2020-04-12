@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: docker-image-sam
+  namespace: kabanero
+spec:
+  params:
+    - name: url
+      value: >-
+        image-registry.openshift-image-registry.svc:5000/11st/icp4a-java-sody
+  type: image
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: git-source-sam
+  namespace: kabanero
+spec:
+  params:
+    - name: revision
+      value: 641c05d75fd075c2aa5a558390b018bf6ddb90af
+    - name: url
+      value: "http://bit.hcp.darumtech.net:7990/scm/kub/icp4a-java-sody.git"
+  type: git

@@ -1,0 +1,303 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  annotations:
+    manifestival: new
+  creationTimestamp: "2020-04-12T05:59:03Z"
+  generation: 1
+  labels:
+    tekton.dev/eventlistener: bitbucket-eventlistener
+    tekton.dev/pipeline: java-spring-boot2-build-deploy-pl
+    tekton.dev/trigger: bmt-sample-spring-boot2-build-deploy-event
+    tekton.dev/triggers-eventid: qlkr5
+    webhooks.tekton.dev/gitBranch: master
+    webhooks.tekton.dev/gitOrg: hcp
+    webhooks.tekton.dev/gitRepo: bmt-sample-spring-boot2
+    webhooks.tekton.dev/gitServer: bit.hcp.darumtech.net
+  name: java-spring-boot2-build-deploy-pl-13hix7
+  namespace: kabanero
+  resourceVersion: "20743619"
+  selfLink: /apis/tekton.dev/v1alpha1/namespaces/kabanero/pipelineruns/java-spring-boot2-build-deploy-pl-13hix7
+  uid: ba2ade68-d3f6-4a29-b3c8-538974a5d951
+spec:
+  params:
+  - name: event-type
+    value: push
+  - name: event-ref
+    value: refs/heads/master
+  pipelineRef:
+    name: java-spring-boot2-build-deploy-pl
+  resources:
+  - name: git-source
+    resourceRef:
+      name: git-source-t854r
+  - name: docker-image
+    resourceRef:
+      name: docker-image-t854r
+  serviceAccountName: kabanero-operator
+  timeout: 1h0m0s
+status:
+  completionTime: "2020-04-12T06:04:12Z"
+  conditions:
+  - lastTransitionTime: "2020-04-12T06:04:12Z"
+    message: All Tasks have completed executing
+    reason: Succeeded
+    status: "True"
+    type: Succeeded
+  startTime: "2020-04-12T05:59:03Z"
+  taskRuns:
+    java-spring-boot2-build-deploy-pl-13hix7-build-push-task-l5wxk:
+      pipelineTaskName: build-push-task
+      status:
+        completionTime: "2020-04-12T06:02:44Z"
+        conditions:
+        - lastTransitionTime: "2020-04-12T06:02:44Z"
+          message: All Steps have completed executing
+          reason: Succeeded
+          status: "True"
+          type: Succeeded
+        podName: java-spring-boot2-build-deploy-pl-13hix7-build-push-task--s9vn4
+        resourcesResult:
+        - digest: ""
+          key: commit
+          name: ""
+          resourceRef: {}
+          value: 4f701132803652deb7fa9cb62b915159dc892f15
+        startTime: "2020-04-12T05:59:31Z"
+        steps:
+        - container: step-imagename-lowercase
+          imageID: docker.io/appsody/appsody-buildah@sha256:c31db8290a6b3e105058bbfd6aa48eff365a00dc16e5ba41f26e24964b3a3446
+          name: imagename-lowercase
+          terminated:
+            containerID: cri-o://8108044f4b58b62445849a2ad04a97be22fc946fc5eeea97009d0b5c1a6f3abe
+            exitCode: 0
+            finishedAt: "2020-04-12T06:00:00Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:00:00Z"
+        - container: step-build
+          imageID: docker.io/appsody/appsody-buildah@sha256:c31db8290a6b3e105058bbfd6aa48eff365a00dc16e5ba41f26e24964b3a3446
+          name: build
+          terminated:
+            containerID: cri-o://b65feaaf841b20fe89703e53337359950f63f7467ddb5033d5b4c8cc7ee10e69
+            exitCode: 0
+            finishedAt: "2020-04-12T06:02:31Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:00:00Z"
+        - container: step-push
+          imageID: docker.io/appsody/appsody-buildah@sha256:c31db8290a6b3e105058bbfd6aa48eff365a00dc16e5ba41f26e24964b3a3446
+          name: push
+          terminated:
+            containerID: cri-o://a88a7617a268c21c751765a03d785db3c55698a6050080c2e7e0787bb9fb1ccc
+            exitCode: 0
+            finishedAt: "2020-04-12T06:02:41Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:02:31Z"
+        - container: step-git-source-git-source-t854r-5ghwk
+          imageID: quay.io/openshift-pipeline/tektoncd-pipeline-git-init@sha256:0956ae04297fe4740af495ec1d6d51bd7fbd79686f5d5a4ea09ca44c4e9838cf
+          name: git-source-git-source-t854r-5ghwk
+          terminated:
+            containerID: cri-o://736e5d64583b06bc359bff366e4254f4aa4cc6e3fc3d16a1f75c7531f3182865
+            exitCode: 0
+            finishedAt: "2020-04-12T06:00:00Z"
+            message: '[{"name":"","digest":"","key":"commit","value":"4f701132803652deb7fa9cb62b915159dc892f15","resourceRef":{}}]'
+            reason: Completed
+            startedAt: "2020-04-12T05:59:54Z"
+        - container: step-image-digest-exporter-sgdpt
+          imageID: quay.io/openshift-pipeline/tektoncd-pipeline-imagedigestexporter@sha256:bc12f889c9f28f7f7efeb9854df0e390869fdf1b6505bea31a4c17b3014becd3
+          name: image-digest-exporter-sgdpt
+          terminated:
+            containerID: cri-o://72ed18026e7d9b8de576ec0291b140f93dcae5eba8add4b3b87aa65e8350d484
+            exitCode: 0
+            finishedAt: "2020-04-12T06:02:42Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:02:42Z"
+        - container: step-create-dir-docker-image-ncfqv
+          imageID: registry.access.redhat.com/ubi8/ubi-minimal@sha256:4e6755fbb3af9502f60d7f0da12bad68217db3f92c2114f8867b76ac4e1d8bed
+          name: create-dir-docker-image-ncfqv
+          terminated:
+            containerID: cri-o://ed3a5174b00d311b1542cd238fa4d70599dd7f1fb90215ff4c02481c1ce2af53
+            exitCode: 0
+            finishedAt: "2020-04-12T05:59:54Z"
+            reason: Completed
+            startedAt: "2020-04-12T05:59:54Z"
+        - container: step-create-dir-git-source-mf9z4
+          imageID: registry.access.redhat.com/ubi8/ubi-minimal@sha256:4e6755fbb3af9502f60d7f0da12bad68217db3f92c2114f8867b76ac4e1d8bed
+          name: create-dir-git-source-mf9z4
+          terminated:
+            containerID: cri-o://8267177012e4a4f9a3a0aae362580d8c5544e9d9fa34d2436f742a20cbe5cc3f
+            exitCode: 0
+            finishedAt: "2020-04-12T05:59:53Z"
+            reason: Completed
+            startedAt: "2020-04-12T05:59:53Z"
+        - container: step-source-copy-git-source-t854r-cvggz
+          imageID: registry.access.redhat.com/ubi8/ubi-minimal@sha256:4e6755fbb3af9502f60d7f0da12bad68217db3f92c2114f8867b76ac4e1d8bed
+          name: source-copy-git-source-t854r-cvggz
+          terminated:
+            containerID: cri-o://a963a18968be3fef5e3fb7c10e774febf9e26897215ceccffaafb24a8271bf01
+            exitCode: 0
+            finishedAt: "2020-04-12T06:02:44Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:02:44Z"
+        - container: step-source-mkdir-git-source-t854r-j487r
+          imageID: registry.access.redhat.com/ubi8/ubi-minimal@sha256:4e6755fbb3af9502f60d7f0da12bad68217db3f92c2114f8867b76ac4e1d8bed
+          name: source-mkdir-git-source-t854r-j487r
+          terminated:
+            containerID: cri-o://63355b6fc04cebc1732e3a41a7be683255cb6f776819ac7a37404e7e53848618
+            exitCode: 0
+            finishedAt: "2020-04-12T06:02:43Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:02:43Z"
+    java-spring-boot2-build-deploy-pl-13hix7-deploy-task-tqsmz:
+      conditionChecks:
+        java-spring-boot2-build-deploy-pl-13hix7-deploy-task-tqsm-lrrww:
+          conditionName: java-spring-boot2-deployment-condition
+          status:
+            check:
+              terminated:
+                containerID: cri-o://1ca770ec721a4f7f84817cfabf4ae2d05c9878e682025ec27e7741e238827259
+                exitCode: 0
+                finishedAt: "2020-04-12T06:03:53Z"
+                reason: Completed
+                startedAt: "2020-04-12T06:03:53Z"
+            completionTime: "2020-04-12T06:03:54Z"
+            conditions:
+            - lastTransitionTime: "2020-04-12T06:03:54Z"
+              message: All Steps have completed executing
+              reason: Succeeded
+              status: "True"
+              type: Succeeded
+            podName: java-spring-boot2-build-deploy-pl-13hix7-deploy-task-tqsm-zjfhf
+            startTime: "2020-04-12T06:03:39Z"
+      pipelineTaskName: deploy-task
+      status:
+        completionTime: "2020-04-12T06:04:12Z"
+        conditions:
+        - lastTransitionTime: "2020-04-12T06:04:12Z"
+          message: All Steps have completed executing
+          reason: Succeeded
+          status: "True"
+          type: Succeeded
+        podName: java-spring-boot2-build-deploy-pl-13hix7-deploy-task-tqsm-f4gfx
+        startTime: "2020-04-12T06:03:54Z"
+        steps:
+        - container: step-deploy-image
+          imageID: docker.io/kabanero/kabanero-utils@sha256:bf8679af6abf352c09ca8e81886e935cb67f740f8b94fdf2c9c8a2f65f325dd2
+          name: deploy-image
+          terminated:
+            containerID: cri-o://7af7cfe11877486aad8db41287f2b912e63ed88750cfdd2cf7af9feffc413fda
+            exitCode: 0
+            finishedAt: "2020-04-12T06:04:11Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:04:09Z"
+        - container: step-create-dir-git-source-czmm6
+          imageID: registry.access.redhat.com/ubi8/ubi-minimal@sha256:4e6755fbb3af9502f60d7f0da12bad68217db3f92c2114f8867b76ac4e1d8bed
+          name: create-dir-git-source-czmm6
+          terminated:
+            containerID: cri-o://fc73615b8e6d7cb67b612631e5f6b6fc3406b75e6ee36c1142d434839cd03838
+            exitCode: 0
+            finishedAt: "2020-04-12T06:04:08Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:04:08Z"
+        - container: step-source-copy-git-source-h5x76
+          imageID: registry.access.redhat.com/ubi8/ubi-minimal@sha256:4e6755fbb3af9502f60d7f0da12bad68217db3f92c2114f8867b76ac4e1d8bed
+          name: source-copy-git-source-h5x76
+          terminated:
+            containerID: cri-o://c767b5706be33f9ba415396a51aed5fe35b67f49ca8a075601355af44d546d2c
+            exitCode: 0
+            finishedAt: "2020-04-12T06:04:09Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:04:09Z"
+    java-spring-boot2-build-deploy-pl-13hix7-image-scan-task-vz6cz:
+      pipelineTaskName: image-scan-task
+      status:
+        completionTime: "2020-04-12T06:03:39Z"
+        conditions:
+        - lastTransitionTime: "2020-04-12T06:03:39Z"
+          message: All Steps have completed executing
+          reason: Succeeded
+          status: "True"
+          type: Succeeded
+        podName: java-spring-boot2-build-deploy-pl-13hix7-image-scan-task--tc8nw
+        resourcesResult:
+        - digest: ""
+          key: commit
+          name: ""
+          resourceRef: {}
+          value: 4f701132803652deb7fa9cb62b915159dc892f15
+        startTime: "2020-04-12T06:02:44Z"
+        steps:
+        - container: step-imagename-lowercase
+          imageID: docker.io/appsody/appsody-buildah@sha256:c31db8290a6b3e105058bbfd6aa48eff365a00dc16e5ba41f26e24964b3a3446
+          name: imagename-lowercase
+          terminated:
+            containerID: cri-o://b73b7c97060b67d065d64f830fcad1f1f36acef372040c2d078181170c936146
+            exitCode: 0
+            finishedAt: "2020-04-12T06:02:56Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:02:56Z"
+        - container: step-mount-image
+          imageID: docker.io/appsody/appsody-buildah@sha256:405ea5d4c6ed9ef49f20fedcaeff57c9b3eba4c49cd9179f5a7c487ac45985ee
+          name: mount-image
+          terminated:
+            containerID: cri-o://509a7143086e012833e643b70dccc8512ae5681c8c9378d0a8bf6e2b66a264b5
+            exitCode: 0
+            finishedAt: "2020-04-12T06:03:17Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:02:56Z"
+        - container: step-scan-image
+          imageID: docker.io/kabanero/scanner@sha256:82b979de485fc5990d41b8b4acc2aeee2211bd26b0f03374f5657773ae4148f9
+          name: scan-image
+          terminated:
+            containerID: cri-o://f5a44d7b4a7f12a443fa46a1014d33a2ae1baf38b56abf57b112753535bf141d
+            exitCode: 0
+            finishedAt: "2020-04-12T06:03:39Z"
+            reason: Completed
+            startedAt: "2020-04-12T06:03:18Z"
+        - container: step-git-source-git-source-t854r-sgddv
+          imageID: quay.io/openshift-pipeline/tektoncd-pipeline-git-init@sha256:0956ae04297fe4740af495ec1d6d51bd7fbd79686f5d5a4ea09ca44c4e9838cf
+          name: git-source-git-source-t854r-sgddv
+          terminated:
+            containerID: cri-o://45d40486ec639221b5613ca58c8a348d88d71054be2a36f8b5b97c64f32beba1
+            exitCode: 0
+            finishedAt: "2020-04-12T06:02:56Z"
+            message: '[{"name":"","digest":"","key":"commit","value":"4f701132803652deb7fa9cb62b915159dc892f15","resourceRef":{}}]'
+            reason: Completed
+            startedAt: "2020-04-12T06:02:55Z"
+    java-spring-boot2-build-deploy-pl-13hix7-validate-stack-t-97n8l:
+      pipelineTaskName: validate-stack-task
+      status:
+        completionTime: "2020-04-12T05:59:31Z"
+        conditions:
+        - lastTransitionTime: "2020-04-12T05:59:31Z"
+          message: All Steps have completed executing
+          reason: Succeeded
+          status: "True"
+          type: Succeeded
+        podName: java-spring-boot2-build-deploy-pl-13hix7-validate-stack-t-tth9l
+        resourcesResult:
+        - digest: ""
+          key: commit
+          name: ""
+          resourceRef: {}
+          value: 4f701132803652deb7fa9cb62b915159dc892f15
+        startTime: "2020-04-12T05:59:03Z"
+        steps:
+        - container: step-validate-stack-is-active
+          imageID: docker.io/kabanero/validate-stack@sha256:836fe3706782a66eff18737f665f45c1bc7cab813e75f1ed68cc02cfcae2d8eb
+          name: validate-stack-is-active
+          terminated:
+            containerID: cri-o://47219ecaed17c6804d11dfbdff6af84f3630bc65a905ce66a4a3bda9f0f3ce4a
+            exitCode: 0
+            finishedAt: "2020-04-12T05:59:31Z"
+            reason: Completed
+            startedAt: "2020-04-12T05:59:11Z"
+        - container: step-git-source-git-source-t854r-jzr8x
+          imageID: quay.io/openshift-pipeline/tektoncd-pipeline-git-init@sha256:0956ae04297fe4740af495ec1d6d51bd7fbd79686f5d5a4ea09ca44c4e9838cf
+          name: git-source-git-source-t854r-jzr8x
+          terminated:
+            containerID: cri-o://8d15d9a1f5385afc299c39a2a5f9d1eacd97325b12649faee511dc054a665918
+            exitCode: 0
+            finishedAt: "2020-04-12T05:59:11Z"
+            message: '[{"name":"","digest":"","key":"commit","value":"4f701132803652deb7fa9cb62b915159dc892f15","resourceRef":{}}]'
+            reason: Completed
+            startedAt: "2020-04-12T05:59:11Z"

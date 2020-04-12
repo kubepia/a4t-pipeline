@@ -1,0 +1,49 @@
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: icp4a-java-sody-eventlistener # change
+  namespace: tekton-pipelines
+spec:
+  serviceAccountName: tekton-webhooks-extension-eventlistener
+  triggers:
+    - bindings:
+        - apiversion: v1alpha1
+          name: bitbucket-binding
+        - apiversion: v1alpha1
+          name: wext-icp4a-java-sody-binding # change of bellow
+      name: ipc4a-java-sody-kabanero-build-deploy-event # change
+      template:
+        apiversion: v1alpha1
+        name: hcp-appsody-pl-template
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  generateName: wext-icp4a-java-sody-binding- # change
+  generation: 1
+  name: wext-icp4a-java-sody-binding # change
+  namespace: tekton-pipelines
+spec:
+  params:
+    - name: webhooks-tekton-release-name
+      value: icp4a-java-sody # change
+    - name: webhooks-tekton-target-namespace
+      value: kabanero
+    - name: webhooks-tekton-service-account
+      value: kabanero-operator
+    - name: webhooks-tekton-git-server
+      value: bit.hcp.darumtech.net # change
+    - name: webhooks-tekton-git-org
+      value: kubepia # change
+    - name: webhooks-tekton-git-repo
+      value: icp4a-java-sody # change
+    - name: webhooks-tekton-pull-task
+      value: monitor-task
+    - name: webhooks-tekton-ssl-verify
+      value: "false"
+    - name: webhooks-tekton-insecure-skip-tls-verify
+      value: "true"
+    - name: webhooks-tekton-docker-registry
+      value: image-registry.openshift-image-registry.svc:5000/11st # change
+    - name: target-namespace
+      value: 11st # change

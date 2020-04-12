@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  annotations:
+    manifestival: new
+  name: samdeployrun
+  namespace: kabanero
+spec:
+  taskref:
+    name: hcp-spring-boot2-deploy-task
+  serviceAccountName: kabanero-operator
+  inputs:
+    resources:
+      - name: git-source
+        resourceSpec:
+          type: git
+          params:
+            - name: url
+              value: http://bit.hcp.darumtech.net:7990/scm/kub/icp4a-java-sody.git
+    params:
+      - name: target-namespace
+        value: "11st"

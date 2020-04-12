@@ -3,7 +3,7 @@ kind: Task
 metadata:
   annotations:
     manifestival: new
-  name: hcp-spring-boot2-build-push-task
+  name: hcp-appsody-build-push-task
   namespace: kabanero
 spec:
   inputs:
@@ -201,6 +201,10 @@ spec:
 
           echo $CHECK_NAMESAPCE
 
+          echo $STACK_IMAGE_REGISTRY_URL
+
+          echo "===================================="
+
           appsody build -t "$OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE"
           --buildah --buildah-options "--format=docker" --stack-registry
           "$STACK_IMAGE_REGISTRY_URL"
@@ -210,6 +214,11 @@ spec:
           deploy pipeline"
 
           cp app-deploy.yaml $(outputs.resources.git-source.path)
+
+          buildah push --tls-verify=false
+          "$OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE"
+          "docker://$OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE"
+
       command:
         - /bin/bash
       env:

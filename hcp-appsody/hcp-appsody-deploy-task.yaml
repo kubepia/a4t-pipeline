@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: hcp-appsody-deploy-task
+  namespace: kabanero
+spec:
+  inputs:
+    params:
+      - default: icp4a-spring-boot2
+        name: repository-name
+        type: string
+      - default: app-deploy.yaml
+        name: app-deploy-file-name
+        type: string
+      - name: target-namespace
+        type: string
+    resources:
+      - name: git-source
+        type: git
+  steps:
+    - args:
+        - "-c"
+        - >-
+          cd /workspace/$gitsource
+
+          CHECK_NAMESAPCE=$(grep "  namespace:" ${YAMLFILE})
+
+          TARGET_NAMESPACE=""
+
+          if [ "" == "$CHECK_NAMESAPCE" ]; then 
+              TARGET_NAMESPACE=" -n "$(inputs.params.target-namespace)
+          fi
+
+          echo "===========:::" $TARGET_NAMESPACE
+
+          find /workspace/$gitsource -name ${YAMLFILE} -type f|xargs kubectl
+          apply $TARGET_NAMESPACE -f
+      command:
+        - /bin/sh
+      env:
+        - name: gitsource
+          value: git-source
+        - name: YAMLFILE
+          value: $(inputs.params.app-deploy-file-name)
+      image: "kabanero/kabanero-utils:0.3.0"
+      name: deploy-image
+      resources: {}

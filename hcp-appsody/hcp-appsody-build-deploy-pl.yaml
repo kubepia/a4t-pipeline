@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: hcp-appsody-build-deploy-pl
+  namespace: kabanero
+spec:
+  resources:
+    - name: git-source
+      type: git
+    - name: docker-image
+      type: image
+  params:
+    - name: target-namespace
+      type: string
+  tasks:
+    - name: build-push-task
+      resources:
+        inputs:
+          - name: git-source
+            resource: git-source
+        outputs:
+          - name: docker-image
+            resource: docker-image
+          - name: git-source
+            resource: git-source
+      taskRef:
+        kind: Task
+        name: hcp-appsody-build-push-task
+    - name: deploy-task
+      resources:
+        inputs:
+          - name: git-source
+            resource: git-source
+      params:
+        - name: target-namespace
+          value: $(params.target-namespace)
+      runAfter:
+        - build-push-task
+      taskRef:
+        kind: Task
+        name: hcp-appsody-deploy-task

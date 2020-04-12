@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  annotations:
+    manifestival: new
+  name: bitbucket-binding
+  namespace: tekton-pipelines
+spec:
+  params:
+    - name: gitrevision
+      value: $(body.changes[0].toHash)
+    - name: gitrepositoryurl
+      value: $(body.repository.links.clone[0].href)
+    - name: docker-tag
+      value: $(body.repository.name):$(body.changes[0].toHash)
+    - name: event-type
+      value: "push" #$(header.X-Github-Event)
+    - name: event-ref
+      value: "refs/heads/master" #$(header.X-Github-Event)
+    - name: webhooks-tekton-git-branch
+      value: "master" #$(body.webhooks-tekton-git-branch)
