@@ -17,6 +17,8 @@ spec:
     resources:
       - name: git-source
         type: git
+      - name: docker-image
+        type: image
   steps:
     - args:
         - "-c"
@@ -30,8 +32,6 @@ spec:
           if [ "" == "$CHECK_NAMESAPCE" ]; then 
               TARGET_NAMESPACE=" -n "$(inputs.params.target-namespace)
           fi
-
-          echo "===========:::" $TARGET_NAMESPACE
 
           find /workspace/$gitsource -name ${YAMLFILE} -type f|xargs kubectl
           apply $TARGET_NAMESPACE -f

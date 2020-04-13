@@ -209,15 +209,7 @@ spec:
           --buildah --buildah-options "--format=docker" --stack-registry
           "$STACK_IMAGE_REGISTRY_URL"
 
-          echo "Copying the generated app-deploy.yaml file from input to the
-          output to pass the file to the next task when this task is used in
-          deploy pipeline"
-
           cp app-deploy.yaml $(outputs.resources.git-source.path)
-
-          buildah push --tls-verify=false
-          "$OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE"
-          "docker://$OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE"
 
       command:
         - /bin/bash
@@ -256,6 +248,32 @@ spec:
           name: config-volume
         - mountPath: /etc/secret-volume
           name: secret-volume
+    - args:
+        - "-c"
+        - >
+
+          OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE=$( echo $(
+          /workspace/imageurl_imagename_lowercase.sh ) )
+
+          echo
+          "OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE=$OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE"
+
+          buildah push --tls-verify=false
+          "$OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE"
+          "docker://$OUTPUTS_RESOURCE_DOCKER_IMAGE_URL_LOWERCASE"
+      command:
+        - /bin/bash
+      env:
+        - name: gitsource
+          value: git-source
+      image: "appsody/appsody-buildah:0.5.8-buildah1.9.0"
+      name: push
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: varlibcontainers
   volumes:
     - name: varlibcontainers
       emptyDir: {}

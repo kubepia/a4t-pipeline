@@ -1,17 +1,25 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
+  annotations:
+    manifestival: new
   name: hcp-appsody-build-deploy-pl
   namespace: kabanero
 spec:
+  params:
+    - description: The event type
+      name: event-type
+      type: string
+    - description: The event ref
+      name: event-ref
+      type: string
+    - name: target-namespace
+      type: string
   resources:
     - name: git-source
       type: git
     - name: docker-image
       type: image
-  params:
-    - name: target-namespace
-      type: string
   tasks:
     - name: build-push-task
       resources:
@@ -29,8 +37,12 @@ spec:
     - name: deploy-task
       resources:
         inputs:
-          - name: git-source
+          - from:
+              - build-push-task
+            name: git-source
             resource: git-source
+          - name: docker-image
+            resource: docker-image
       params:
         - name: target-namespace
           value: $(params.target-namespace)
