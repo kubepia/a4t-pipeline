@@ -32,7 +32,7 @@ spec:
     - name: webhooks-tekton-service-account
       value: kabanero-operator
     - name: webhooks-tekton-git-server
-      value: bit.hcp.darumtech.net # change
+      value: bit.skthcp.skcloud.io # change
     - name: webhooks-tekton-git-org
       value: kubepia # change
     - name: webhooks-tekton-git-repo
@@ -46,4 +46,4 @@ spec:
     - name: webhooks-tekton-docker-registry
       value: image-registry.openshift-image-registry.svc:5000/11st # change
     - name: target-namespace
-      value: 11st # change
+      value: az-bookinfo # change
