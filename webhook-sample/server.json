@@ -1,9 +1,9 @@
 {
 	"eventKey": "repo:refs_changed",
-	"date": "2020-04-06T16:36:45+0000",
+	"date": "2020-04-16T14:27:15+0000",
 	"actor": {
 		"name": "admin",
-		"emailAddress": "mskim@darumtech.co.kr",
+		"emailAddress": "admin@kubepia",
 		"id": 1,
 		"displayName": "admin",
 		"active": true,
@@ -11,27 +11,28 @@
 		"type": "NORMAL",
 		"links": {
 			"self": [
-				{ "href": "http://bit.hcp.darumtech.net:7990/users/admin" }
+				{ "href": "http://bit.skthcp.skcloud.io:7990/users/admin" }
 			]
 		}
 	},
 	"repository": {
-		"slug": "java-sody",
-		"id": 2,
-		"name": "java-sody",
+		"slug": "petshop",
+		"id": 12,
+		"name": "petshop",
 		"scmId": "git",
 		"state": "AVAILABLE",
 		"statusMessage": "Available",
 		"forkable": true,
 		"project": {
-			"key": "KUB",
+			"key": "HCP",
 			"id": 1,
-			"name": "kubepia",
+			"name": "hcp",
+			"description": "skt hcp demo application",
 			"public": true,
 			"type": "NORMAL",
 			"links": {
 				"self": [
-					{ "href": "http://bit.hcp.darumtech.net:7990/projects/KUB" }
+					{ "href": "http://bit.skthcp.skcloud.io:7990/projects/HCP" }
 				]
 			}
 		},
@@ -39,17 +40,13 @@
 		"links": {
 			"clone": [
 				{
-					"href": "http://bit.hcp.darumtech.net:7990/scm/kub/java-sody.git",
+					"href": "http://bit.skthcp.skcloud.io:7990/scm/hcp/petshop.git",
 					"name": "http"
-				},
-				{
-					"href": "ssh://git@bit.hcp.darumtech.net:7999/kub/java-sody.git",
-					"name": "ssh"
 				}
 			],
 			"self": [
 				{
-					"href": "http://bit.hcp.darumtech.net:7990/projects/KUB/repos/java-sody/browse"
+					"href": "http://bit.skthcp.skcloud.io:7990/projects/HCP/repos/petshop/browse"
 				}
 			]
 		}
@@ -62,9 +59,20 @@
 				"type": "BRANCH"
 			},
 			"refId": "refs/heads/master",
-			"fromHash": "165142d0a1704972b89db58399e1ec081a48aa34",
-			"toHash": "4b57ee2a00990e6e9af15c16853b639447e012a0",
+			"fromHash": "c9612a851b7c1d51411316bd6547b01cf044c2be",
+			"toHash": "ecad236bbcabf7bbf317ff6c6cabafc6fd3bb0e5",
 			"type": "UPDATE"
+		},
+		{
+			"ref": {
+				"id": "refs/tags/v007",
+				"displayId": "v007",
+				"type": "TAG"
+			},
+			"refId": "refs/tags/v007",
+			"fromHash": "0000000000000000000000000000000000000000",
+			"toHash": "d8cdf1e48a5cb956ca313bf52edd25ae7155c48b",
+			"type": "ADD"
 		}
 	]
 }

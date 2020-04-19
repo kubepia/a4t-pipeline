@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: icp4a-java-sody-eventlistener # change
+  name: petshop-eventlistener # change
   namespace: tekton-pipelines
 spec:
   serviceAccountName: tekton-webhooks-extension-eventlistener
@@ -10,7 +10,7 @@ spec:
         - apiversion: v1alpha1
           name: bitbucket-binding
         - apiversion: v1alpha1
-          name: wext-icp4a-java-sody-binding # change of bellow
+          name: wext-petshop-binding # change of bellow
       name: ipc4a-java-sody-kabanero-build-deploy-event # change
       template:
         apiversion: v1alpha1
@@ -19,24 +19,24 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  generateName: wext-icp4a-java-sody-binding- # change
+  generateName: wext-petshop-binding- # change
   generation: 1
-  name: wext-icp4a-java-sody-binding # change
+  name: wext-petshop-binding # change
   namespace: tekton-pipelines
 spec:
   params:
     - name: webhooks-tekton-release-name
-      value: icp4a-java-sody # change
+      value: petshop # change
     - name: webhooks-tekton-target-namespace
       value: kabanero
     - name: webhooks-tekton-service-account
       value: kabanero-operator
     - name: webhooks-tekton-git-server
-      value: bit.skthcp.skcloud.io # change
+      value: bit.hcp.skcloud.io # change
     - name: webhooks-tekton-git-org
-      value: kubepia # change
+      value: skt-hcp # change
     - name: webhooks-tekton-git-repo
-      value: icp4a-java-sody # change
+      value: petshop # change
     - name: webhooks-tekton-pull-task
       value: monitor-task
     - name: webhooks-tekton-ssl-verify
@@ -44,6 +44,6 @@ spec:
     - name: webhooks-tekton-insecure-skip-tls-verify
       value: "true"
     - name: webhooks-tekton-docker-registry
-      value: image-registry.openshift-image-registry.svc:5000/11st # change
+      value: image-registry.openshift-image-registry.svc:5000/az-cicd-dev # change
     - name: target-namespace
-      value: az-bookinfo # change
+      value: az-cicd-dev # change

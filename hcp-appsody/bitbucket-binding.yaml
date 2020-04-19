@@ -12,7 +12,7 @@ spec:
     - name: gitrepositoryurl
       value: $(body.repository.links.clone[0].href)
     - name: docker-tag
-      value: $(body.repository.name):$(body.changes[0].toHash)
+      value: $(body.repository.name):$(body.changes[-1:].ref.displayId)
     - name: event-type
       value: "push" #$(header.X-Github-Event)
     - name: event-ref
